@@ -9,11 +9,13 @@
 #include "FSM.h"
 #include <exception>
 #include <stdexcept>
+#include <unistd.h>
 
 class FSM;
 
 class FSMState {
 public:
+	virtual void waitForTimer(FSM& fsm) = 0;
 	virtual void readSensors(FSM& fsm) = 0;
 	virtual void sendReadings(FSM& fsm) = 0;
 	virtual ~FSMState();
@@ -23,6 +25,7 @@ protected:
 
 class Idle : public FSMState {
 public:
+	virtual void waitForTimer(FSM& fsm);
 	virtual void readSensors(FSM& fsm);
 	virtual void sendReadings(FSM& fsm);
 	virtual ~Idle();
@@ -30,6 +33,7 @@ public:
 
 class Sensing : public FSMState {
 public:
+	virtual void waitForTimer(FSM& fsm);
 	virtual void readSensors(FSM& fsm);
 	virtual void sendReadings(FSM& fsm);
 	virtual ~Sensing();
@@ -37,41 +41,10 @@ public:
 
 class Processing : public FSMState {
 public:
+	virtual void waitForTimer(FSM& fsm);
 	virtual void readSensors(FSM& fsm);
 	virtual void sendReadings(FSM& fsm);
 	virtual ~Processing();
 };
 
 #endif /* FSMSTATES_H_ */
-
-/*
- #include "machine.h"
-#include <exception>
-#include <stdexcept>
-
-class Machine;
-
-class AbstractState {
-public:
-	virtual void sell(Machine& machine, unsigned int quantity) = 0;
-	virtual void refill(Machine& machine, unsigned int quantity) = 0;
-	virtual ~AbstractState();
-protected:
-	void setState(Machine& machine, AbstractState* state);
-	void updateStock(Machine& machine, unsigned int quantity);
-};
-
-class Normal : public AbstractState {
-public:
-	virtual void sell(Machine& machine, unsigned int quantity);
-	virtual void refill(Machine& machine, unsigned int quantity);
-	virtual ~Normal();
-};
-
-class SoldOut : public AbstractState {
-public:
-	virtual void sell(Machine& machine, unsigned int quantity);
-	virtual void refill(Machine& machine, unsigned int quantity);
-	virtual ~SoldOut();
-};
- */

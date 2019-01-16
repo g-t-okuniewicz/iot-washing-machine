@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "SensorManager.h"
+#include "FSM.h"
 
 int main() {
 
@@ -20,12 +21,15 @@ int main() {
 	sensors.push_back(waterTempSensor);
 
 	SensorManager* sensorManager = new SensorManager(&sensors);
-	sensorManager->readSensors();
-	sensorManager->sendReadings();
+	//sensorManager->readSensors();
+	//sensorManager->sendReadings();
+
+	FSM* fsm = new FSM(sensorManager);
 
 	delete doorSensor;
 	delete waterLevelSensor;
 	delete waterTempSensor;
+	delete fsm;
 
 	return 0;
 }
