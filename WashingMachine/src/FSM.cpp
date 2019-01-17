@@ -5,29 +5,26 @@
 
 #include "FSM.h"
 
-FSM::FSM(SensorManager* sensorManager) {
-	mSensorManager = sensorManager;
+FSM::FSM(SensorManager* sensorManager, CommManager* commManager) {
+	pSensorManager = sensorManager;
+	pCommManager = commManager;
 	std::cout << "Idle" << std::endl;
-	mState = new Idle();
-	waitForTimer();
+	pState = new Idle();
+	onExit();
 }
 
 FSM::~FSM() {
-	delete mState;
+	delete pState;
 }
 
-void FSM::waitForTimer() {
-	mState->waitForTimer(*this);
-}
-
-void FSM::readSensors() {
-	mState->readSensors(*this);
-}
-
-void FSM::sendReadings() {
-	mState->sendReadings(*this);
+void FSM::onExit() {
+	pState->onExit(*this);
 }
 
 SensorManager* FSM::getSensorManager() {
-	return mSensorManager;
+	return pSensorManager;
+}
+
+CommManager* FSM::getCommManager() {
+	return pCommManager;
 }

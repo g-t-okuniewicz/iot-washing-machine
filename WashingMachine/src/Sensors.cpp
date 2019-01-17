@@ -68,7 +68,7 @@ Reading DoorSensor::getReading() {
 WaterTempSensor::WaterTempSensor() {
 	mReading = new Reading();
 	mReading->setMeasurement("water_temp");
-	mReading->setUnit("°C");
+	mReading->setUnit("deg_C");
 }
 
 WaterTempSensor::~WaterTempSensor() {

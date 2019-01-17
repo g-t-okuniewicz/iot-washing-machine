@@ -7,6 +7,7 @@
 
 #include "FSMStates.h"
 #include "SensorManager.h"
+#include "CommManager.h"
 
 // defined in FSMStates.h
 class FSMState;
@@ -14,15 +15,15 @@ class FSMState;
 class FSM {
 	friend class FSMState;
 public:
-	FSM(SensorManager* sensorManager);
-	void readSensors();
-	void sendReadings();
-	void waitForTimer();
+	FSM(SensorManager* pSensorManager, CommManager* pCommManager);
+	void onExit();
 	SensorManager* getSensorManager();
+	CommManager* getCommManager();
 	~FSM();
 private:
-	FSMState* mState;
-	SensorManager* mSensorManager;
+	FSMState* pState;
+	SensorManager* pSensorManager;
+	CommManager* pCommManager;
 };
 
 #endif /* FSM_H_ */

@@ -15,9 +15,7 @@ class FSM;
 
 class FSMState {
 public:
-	virtual void waitForTimer(FSM& fsm) = 0;
-	virtual void readSensors(FSM& fsm) = 0;
-	virtual void sendReadings(FSM& fsm) = 0;
+	virtual void onExit(FSM& fsm) = 0;
 	virtual ~FSMState();
 protected:
 	void setState(FSM& fsm, FSMState* state);
@@ -25,25 +23,19 @@ protected:
 
 class Idle : public FSMState {
 public:
-	virtual void waitForTimer(FSM& fsm);
-	virtual void readSensors(FSM& fsm);
-	virtual void sendReadings(FSM& fsm);
+	virtual void onExit(FSM& fsm);
 	virtual ~Idle();
 };
 
 class Sensing : public FSMState {
 public:
-	virtual void waitForTimer(FSM& fsm);
-	virtual void readSensors(FSM& fsm);
-	virtual void sendReadings(FSM& fsm);
+	virtual void onExit(FSM& fsm);
 	virtual ~Sensing();
 };
 
 class Processing : public FSMState {
 public:
-	virtual void waitForTimer(FSM& fsm);
-	virtual void readSensors(FSM& fsm);
-	virtual void sendReadings(FSM& fsm);
+	virtual void onExit(FSM& fsm);
 	virtual ~Processing();
 };
 

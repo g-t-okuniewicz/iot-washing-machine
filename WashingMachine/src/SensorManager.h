@@ -15,7 +15,7 @@ public:
 	SensorManager(std::vector<Sensor*>* sensors);
 	virtual ~SensorManager();
 	virtual void readSensors();
-	virtual void sendReadings();
+	virtual std::vector<Reading> getReadings();
 private:
 	std::vector<Sensor*>* mSensors;
 	std::vector<Reading> mReadings;

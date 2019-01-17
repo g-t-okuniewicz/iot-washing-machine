@@ -3,8 +3,8 @@
  *
  */
 
-#include <iostream>
 #include "SensorManager.h"
+#include "CommManager.h"
 #include "FSM.h"
 
 int main() {
@@ -21,10 +21,10 @@ int main() {
 	sensors.push_back(waterTempSensor);
 
 	SensorManager* sensorManager = new SensorManager(&sensors);
-	//sensorManager->readSensors();
-	//sensorManager->sendReadings();
 
-	FSM* fsm = new FSM(sensorManager);
+	CommManager* commManager = new CommManager();
+
+	FSM* fsm = new FSM(sensorManager, commManager);
 
 	delete doorSensor;
 	delete waterLevelSensor;
